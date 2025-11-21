@@ -1,0 +1,62 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>3D Auth — Home</title>
+  <link href="styles.css" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Share+Tech+Mono&display=swap" rel="stylesheet">
+  <script>
+    // Early guard: if no session is present, redirect to login immediately
+    (function(){
+      try{
+        const s = localStorage.getItem('sessionUser');
+        if(!s){ window.location.href = 'index.html'; }
+      }catch(e){ window.location.href = 'index.html'; }
+    })();
+  </script>
+</head>
+<body>
+  <main class="stage">
+    <div class="background">
+      <canvas id="matrix"></canvas>
+      <div class="blob b1"></div>
+      <div class="blob b2"></div>
+      <div class="blob b3"></div>
+    </div>
+
+    <section class="home" id="home">
+      <header class="home-header">
+        <div class="home-card">
+          <div class="avatar" id="avatar">A</div>
+          <div class="home-info">
+            <h1 id="home-welcome">Hello</h1>
+            <p class="muted">Welcome to the HACK3R PORTAL.</p>
+          </div>
+        </div>
+        <div class="home-controls">
+          <button id="signout" class="btn outline">Sign out</button>
+        </div>
+      </header>
+
+      <section class="home-body">
+        <div class="tiles" role="tablist">
+          <button class="tile" data-view="dashboard" role="tab">Dashboard</button>
+          <button class="tile" data-view="profile" role="tab">Profile</button>
+          <button class="tile" data-view="messages" role="tab">Messages</button>
+          <button class="tile" data-view="about" role="tab">About Us</button>
+        </div>
+
+        <div id="content" class="content-panel" role="region" aria-live="polite">
+          <!-- dynamic content: dashboard/profile/settings/messages -->
+        </div>
+      </section>
+    </section>
+
+  </main>
+
+  <div class="toast-wrap" id="toast-wrap" aria-live="polite"></div>
+  <script src="toast.js"></script>
+  <script src="home.js"></script>
+</body>
+</html>

@@ -1,0 +1,113 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>3D Auth — Login / Register / Home</title>
+  <link href="styles.css" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Share+Tech+Mono&display=swap" rel="stylesheet">
+</head>
+<body>
+  <main class="stage">
+    <div class="background">
+      <canvas id="matrix"></canvas>
+      <div class="blob b1"></div>
+      <div class="blob b2"></div>
+      <div class="blob b3"></div>
+    </div>
+
+    <section class="auth-wrap" id="auth-wrap">
+      <!-- add data-text so glitch pseudo-elements have correct content -->
+      <div class="terminal-header glitch" data-text="HACK3R PORTAL" aria-hidden="false">HACK3R PORTAL</div>
+      <div class="scene">
+        <div class="card" id="card">
+          <div class="face face-front">
+            <h2>Welcome Back</h2>
+            <form id="login-form" autocomplete="on" novalidate>
+              <input type="email" id="login-email" name="email" placeholder="Email" required autocomplete="email" />
+              <input type="password" id="login-password" name="password" placeholder="Password" required autocomplete="current-password" />
+              <button type="button" class="pw-toggle" data-target="login-password" aria-label="Toggle password visibility">👁️</button>
+              <button type="submit" id="login-submit" class="btn primary">Sign In</button>
+              <div class="form-msg error" id="login-error" aria-live="polite"></div>
+              <p class="muted"><a href="#" id="forgot-link">Forgot password?</a></p>
+            </form>
+            <p class="muted">Don't have an account? <a href="#" id="to-register">Create one</a></p>
+          </div>
+
+          <div class="face face-back">
+            <h2>Create Account</h2>
+            <form id="register-form" autocomplete="on" novalidate>
+              <input type="text" id="reg-name" name="name" placeholder="Full name" required autocomplete="name" />
+              <input type="email" id="reg-email" name="email" placeholder="Email" required autocomplete="email" />
+              <input type="password" id="reg-password" name="password" placeholder="Password" required autocomplete="new-password" />
+              <button type="button" class="pw-toggle" data-target="reg-password" aria-label="Toggle password visibility">👁️</button>
+              <div class="pw-meter" aria-hidden="false">
+                <div class="pw-bar"><div id="pw-seg1" class="pw-seg"></div><div id="pw-seg2" class="pw-seg"></div><div id="pw-seg3" class="pw-seg"></div></div>
+                <div id="pw-label" class="pw-label">&nbsp;</div>
+              </div>
+              <button type="submit" id="reg-submit" class="btn">Register</button>
+              <div class="form-msg error" id="reg-error" aria-live="polite"></div>
+            </form>
+            <p class="muted">Already have an account? <a href="#" id="to-login">Sign in</a></p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <div class="toast-wrap" id="toast-wrap" aria-live="polite"></div>
+    <div style="position:fixed;left:20px;bottom:20px;z-index:60">
+      <button id="run-tests" class="btn outline">Run smoke tests</button>
+    </div>
+
+    <!-- Forgot password modal (hidden) -->
+    <div id="forgot-modal" class="modal hidden" role="dialog" aria-modal="true" aria-labelledby="forgot-title">
+      <div class="modal-panel">
+        <h3 id="forgot-title">Reset Password</h3>
+        <form id="forgot-form">
+          <input type="email" id="forgot-email" placeholder="Enter your account email" required autocomplete="email" />
+          <div class="form-msg error" id="forgot-error" aria-live="polite"></div>
+          <div class="modal-actions">
+            <button type="submit" class="btn">Generate Password</button>
+            <button type="button" id="forgot-close" class="btn outline">Close</button>
+          </div>
+        </form>
+        <div id="forgot-result" class="forgot-result hidden">
+          <p class="muted">A new password was generated for your account:</p>
+          <div class="generated"><code id="new-password"></code>
+            <button id="copy-password" class="btn outline">Copy</button>
+            <button id="login-with-new" class="btn primary">Sign in with new password</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <section id="home" class="home hidden">
+      <header class="home-header">
+        <div class="home-card">
+          <div class="avatar">A</div>
+          <div class="home-info">
+            <h1 id="home-welcome">Hello</h1>
+            <p class="muted">This is your 3D-styled homepage.</p>
+          </div>
+        </div>
+        <div class="home-controls">
+          <button id="signout" class="btn outline">Sign out</button>
+        </div>
+      </header>
+
+      <section class="home-body">
+        <div class="tiles">
+          <div class="tile">Dashboard</div>
+          <div class="tile">Profile</div>
+          <div class="tile">About Us</div>
+        </div>
+      </section>
+    </section>
+
+  </main>
+
+  <script src="toast.js"></script>
+  <script src="script.js"></script>
+</body>
+</html>
